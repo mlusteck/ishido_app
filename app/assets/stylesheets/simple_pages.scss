@@ -1,3 +1,125 @@
 // Place all the styles related to the simple_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+/********************  general rules  *****************************************/
+* { box-sizing: border-box; }
+
+body {
+  position: relative;
+  padding-top: 50px;
+  font-size: 1em;
+  line-height: normal;
+  color: #e0f0b0;
+  background-color: #000;
+}
+
+h1,
+h2,
+h3 {
+  color: #d5d550;//#c5c500;//#e0d000;
+}
+
+a,
+a:link,
+a:visited {
+  color: #80e0c0;//#c5c500;//#e0d000;
+}
+a:hover,
+a:active {
+  text-decoration: none;
+  color: #b0ffff;;//#c5c500;//#e0d000;
+  background-color: transparent;
+}
+section {
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+/*-------------------  end general rules  ------------------------------------*/
+
+/********************  navigation  ********************************************/
+#my-navbar {
+  background-color: #000;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+#my-navbar ul,
+#my-navbar a:link,
+#my-navbar a:visited {
+  color: #f0e000;//#e0f0b0; //#a0d7d0;
+}
+
+#my-navbar a:hover,
+#my-navbar a:active {
+  color: #ffff90;//#fff090;
+}
+
+/*-------------------  end navigation  ---------------------------------------*/
+
+.stone {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+
+  margin:0.1em;
+  border-radius: 0.2em;
+  background-color: #987;
+  color: #432;
+  line-height: 1.5em;
+  text-align: center;
+  /* font-weight: bold; */
+  font-size: 1.5em;
+}
+
+.symbol1::before { content: "a"; }
+.symbol2::before { content: "b"; }
+.symbol3::before { content: "c"; }
+.symbol4::before { content: "x"; }
+.symbol5::before { content: "y"; }
+.symbol6::before { content: "z"; }
+
+.color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 10, 50%, 70%); }
+.color2 { color: hsl( 70, 80%, 30%); background-color: hsl( 70, 50%, 70%); }
+.color3 { color: hsl(130, 80%, 30%); background-color: hsl(130, 50%, 70%); }
+.color4 { color: hsl(190, 80%, 30%); background-color: hsl(190, 50%, 70%); }
+.color5 { color: hsl(250, 80%, 30%); background-color: hsl(250, 50%, 70%); }
+.color6 { color: hsl(310, 80%, 30%); background-color: hsl(310, 50%, 70%); }
+
+
+
+/********************  footer  ************************************************/
+footer {
+  min-height: 10em;
+  padding: 20px;
+  color: #709040;
+  background-color: #000;
+}
+/*-------------------  end footer  -------------------------------------------*/
+
+/******************** typography  *********************************************/
+
+body,
+p,
+li {
+  font-family: 'Raleway', sans-serif;
+}
+
+h1,
+h2,
+h3,
+nav.navbar,
+nav.navbar a,
+.carousel,
+.carousel p,
+.contact p,
+footer {
+  font-family: 'Raleway', sans-serif;
+}
+
+hr {
+  margin: 0.6em 0;
+  border-top: 1px solid rgba(255, 255, 100, 0.4);
+}
+
+
+/*-------------------  end typography  ---------------------------------------*/

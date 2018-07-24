@@ -1,0 +1,12 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <h2>Ishido Board</h2>
+  <p>
+  <% if @game %>
+    <strong>Game ID: </strong><%= @game.id %> &mdash;
+    <%= link_to 'Back', games_path, class: "edit-link" %>
+  <% else %>
+    <strong>No Order found with this ID.</strong>
+  <% end %>
+  </p>
+</div>
