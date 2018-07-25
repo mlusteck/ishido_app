@@ -7,7 +7,7 @@
 
 body {
   position: relative;
-  padding-top: 50px;
+  padding-top: 55px;
   font-size: 1em;
   line-height: normal;
   color: #e0f0b0;
@@ -20,21 +20,36 @@ h3 {
   color: #d5d550;//#c5c500;//#e0d000;
 }
 
+input[type="submit"] {
+  background-color: #000;
+  border: none;
+}
+
 a,
 a:link,
-a:visited {
+a:visited,
+input[type="submit"] {
   color: #80e0c0;//#c5c500;//#e0d000;
 }
+
 a:hover,
-a:active {
+a:active,
+input[type="submit"]:hover {
   text-decoration: none;
   color: #b0ffff;;//#c5c500;//#e0d000;
   background-color: transparent;
 }
+
+form.hidden-form {
+  /* position: absolute;
+  visibility: hidden; */
+}
+
 section {
   padding-top: 1em;
   padding-bottom: 2em;
 }
+
 /*-------------------  end general rules  ------------------------------------*/
 
 /********************  navigation  ********************************************/
@@ -63,20 +78,13 @@ section {
 
   margin:0.1em;
   border-radius: 0.2em;
-  background-color: #987;
-  color: #432;
+  background-color: #000;
+  color: #555;
   line-height: 1.5em;
   text-align: center;
   /* font-weight: bold; */
   font-size: 1.5em;
 }
-
-.symbol1::before { content: "a"; }
-.symbol2::before { content: "b"; }
-.symbol3::before { content: "c"; }
-.symbol4::before { content: "x"; }
-.symbol5::before { content: "y"; }
-.symbol6::before { content: "z"; }
 
 .color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 10, 50%, 70%); }
 .color2 { color: hsl( 70, 80%, 30%); background-color: hsl( 70, 50%, 70%); }

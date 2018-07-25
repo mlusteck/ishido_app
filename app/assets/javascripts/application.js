@@ -15,3 +15,13 @@
 //= require turbolinks
 //= require jquery3
 //= require_tree .
+
+$(document).ready( function () {
+  $(".place-stone").click( function () {
+    var board_x = $(this).attr("data-board-x");
+    var board_y = $(this).attr("data-board-y");
+    $("#board_x").attr("value", board_x );
+    $("#board_y").attr("value", board_y );
+    $(".hidden-form").submit();
+  })
+})

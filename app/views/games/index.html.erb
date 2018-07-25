@@ -13,5 +13,7 @@
       </div><!-- end col -->
     <% end %>
   </div><!-- end row -->
-  <p><%= link_to 'New Game', new_game_path, class: "edit-link" %></p>
+  <p><%= link_to 'New Game', games_path, class: "edit-link",
+                   method: :create %>
+  </p>
 </div>
