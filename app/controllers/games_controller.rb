@@ -76,9 +76,6 @@ class GamesController < ApplicationController
     @game.place_stone( 5,  3)
     @game.place_stone( 6,  4)
 
-    @game.place_stone( 8,  6)
-    @game.place_stone( 7,  5)
-    @game.place_stone( 9,  2)
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }

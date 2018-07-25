@@ -5,17 +5,27 @@ class Game < ApplicationRecord
 
   def create_stones
     # create the stones
-    symbols = ["a","b","c","x","y","z"]
+    symbols = ["a","b","c","x","y","z"].shuffle
+    colors  = [1, 2, 3, 4, 5, 6].shuffle
     self.stones = []
+    first_stones = []  # all colors and symbols have to be present in the first 6 stones
+    other_stones = []  # thus we have to pick those into first_stones and shuffle only the other_stones
     6.times do |color_nr|
       6.times do |symbol_nr|
         # for each color-symbol-combination there are two stones
         # when they are not on the board, their x,y is -1
-        self.stones.push({"symbol" => symbols[symbol_nr], "color" => 1+color_nr, "x" => -1, "y" => -1 })
-        self.stones.push({"symbol" => symbols[symbol_nr], "color" => 1+color_nr, "x" => -1, "y" => -1 })
+
+        the_stone = {"symbol" => symbols[symbol_nr], "color" => colors[color_nr], "x" => -1, "y" => -1 }
+        other_stones.push(the_stone)
+        if color_nr == symbol_nr # pick stones for the first_stones
+           first_stones.push(the_stone.dup)
+        else
+           other_stones.push(the_stone.dup)
+        end
       end
     end
-    self.stones.shuffle!
+    other_stones.shuffle!
+    self.stones = first_stones + other_stones
     self.current_stone_id = 0
   end
 
