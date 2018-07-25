@@ -1,2 +1,79 @@
-<h1>SimplePages#rules</h1>
-<p>Find me in app/views/simple_pages/rules.html.erb</p>
+<div class="container">
+  <h1>Rules</h1>
+  <p>
+    The game has 72 stones, with a total of six colors and six symbols.
+    There are two stones for each combination of color and symbol.
+    Initially, the board has six stones on it,
+    chosen to have all six colors and all six symbols.
+    You place the remaining 66 stones one at a time,
+    adjacent to existing stones, subject to the following rules.
+  </p>
+  <p>
+    <ul>
+      <li>
+        Adjacent to one stone, you must match the existing stone
+        either by color or by symbol.
+      </li>
+      <li>
+        Adjacent to two stones, you must match one by color
+        and the other by symbol.
+      </li>
+      <li>
+        Adjacent to three stones, you must match one by color
+        and the other two by symbol, or one by symbol and the other two by color.
+      </li>
+      <li>
+        Placing a stone adjacent to four stones creates a “four-way”.
+        The new stone must match two of the stones by color
+        and the other two by symbol.
+        Creating four-ways can greatly increase your score.
+      </li>
+    </ul>
+  </p>
+  <p>
+    The game ends when you have placed all the stones,
+    or when there is nowhere to place the next stone.
+    The scoring for placing a stone is as follows:
+  </p>
+  <p>
+    <ul>
+      <li>adjacent to one stone: 1 point;</li>
+      <li>adjacent to two stones: 2 points;</li>
+      <li>adjacent to three stones: 4 points;</li>
+      <li>adjacent to four stones: 8 points.</li>
+    </ul>
+  </p>
+  <p>
+    You get no points for placing a stone in the squares along the outside edges,
+    though those stones do help when placing future stones.
+    Creating a four-way doubles the above schedule, for each four-way.
+    Additionally, four-ways get the following bonus points.
+  </p>
+  <p>
+    <ul>
+      <li>First four-way: 25 points</li>
+      <li>Second four-way: 50 points</li>
+      <li>Third four-way: 100 points</li>
+      <li>Fourth four-way: 200 points</li>
+      <li>Fifth four-way: 400 points</li>
+      <li>Sixth four-way: 600 points</li>
+      <li>Seventh four-way: 800 points</li>
+      <li>Eighth four-way: 1,000 points</li>
+      <li>Ninth four-way: 5,000 points</li>
+      <li>Tenth four-way: 10,000 points</li>
+      <li>Eleventh four-way: 25,000 points</li>
+      <li>Twelfth four-way: 50,000 points</li>
+    </ul>
+  </p>
+  <p>
+    Finally, placing all the stones gets a bonus of 1,000 points;
+    all but one a bonus of 500 points; and all but two a bonus of 100 points.
+  </p>
+  <p>
+    To maximize your score concentrate on constructing four-ways.
+    Place two stones with one shape, and two with one color,
+    around an empty square. Then wait for the appropriate stone to fill the square.
+    Keep track of which stones are still to come:
+    there are exactly two of each shape and color combination.
+  </p>
+</div><!-- end container -->

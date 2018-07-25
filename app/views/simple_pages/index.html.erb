@@ -1,8 +1,12 @@
-<h1>SimplePages#index</h1>
-<p>Find me in app/views/simple_pages/index.html.erb</p>
-<p>
-<span class="stone symbol1 color1"></span><span class="stone symbol2 color2"></span><span class="stone symbol3  color3"></span><br />
-<span class="stone symbol4 color4"></span><span class="stone symbol5 color5"></span><span class="stone symbol6  color6"></span><br />
-<span class="stone symbol1 color2"></span><span class="stone symbol2 color4"></span><span class="stone symbol6  color6"></span><br />
-<span class="stone symbol4 color5"></span><span class="stone symbol3 color3"></span><span class="stone symbol6  color1"></span><br />
-</p>
+<div class="container">
+  <h1>Welcome to  ISHIDO</h1>
+  <p>
+    Start a <%= link_to 'new Game', games_path, class: "edit-link", method: :create %>
+  </p>
+  <p>
+    <%= link_to 'Resume', games_path, class: "edit-link" %> a game
+  </p>
+  <p>
+    Read the <%= link_to 'Rules', simple_pages_rules_path, class: "edit-link" %>
+  </p>
+</div><!-- end container -->
