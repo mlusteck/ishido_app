@@ -1,7 +1,6 @@
 class Game < ApplicationRecord
   serialize :board, JSON
   serialize :stones, JSON
-  @debug_text = ""
 
   def create_stones
     # create the stones
@@ -15,9 +14,11 @@ class Game < ApplicationRecord
         # for each color-symbol-combination there are two stones
         # when they are not on the board, their x,y is -1
 
-        the_stone = {"symbol" => symbols[symbol_nr], "color" => colors[color_nr], "x" => -1, "y" => -1 }
+        the_stone = {"symbol" => symbols[symbol_nr], "color" => colors[color_nr], "x" => -1, "y" => -1, "fit_count" => 0 }
         other_stones.push(the_stone)
-        if color_nr == symbol_nr # pick stones for the first_stones
+        # pick the first_stones
+        # (their randomness has been asserted by shuffling symbols & colors)
+        if color_nr == symbol_nr
            first_stones.push(the_stone.dup)
         else
            other_stones.push(the_stone.dup)
@@ -36,8 +37,12 @@ class Game < ApplicationRecord
     end
     if self.current_stone_id < self.stones.length
       current_stone = self.stones[self.current_stone_id]
+      fit_count = current_stone_fit_count(board_x, board_y)
       current_stone["x"] = board_x
       current_stone["y"] = board_y
+      current_stone["fit_count"] = fit_count
+      self.score += calculate_score( fit_count )
+      self.four_count += 1 if fit_count==4
       self.board[board_x + 12 * board_y] = current_stone
       self.current_stone_id += 1
     end
@@ -61,7 +66,7 @@ class Game < ApplicationRecord
     if board_x < 0 || board_y < 0 || board_x > 11 || board_y > 7
       return
     end
-    self.board[board_x + 12 * board_y] = {"symbol" => "\u25CC", "color" => 0, "x" => board_x, "y" => board_y }
+    self.board[board_x + 12 * board_y] = {"symbol" => "\u25CC", "color" => 0, "x" => board_x, "y" => board_y, "fit_count" => 0 }
   end
 
   def undo_last_move
@@ -74,27 +79,27 @@ class Game < ApplicationRecord
       self.clear_board(board_x, board_y)
       current_stone["x"] = -1
       current_stone["y"] = -1
+      # take back the score
+      fit_count = current_stone["fit_count"]
+      self.four_count -= 1 if fit_count==4
+      self.score -= calculate_score(fit_count)
     end
   end
 
-  # result: hash with "neighs","same_color","same_symbol"
-  # returns false if color and symbol is different
-  def compare_stone_with_current( stone, result )
-    current_stone = self.stones[self.current_stone_id]
-    if !stone || stone["color"] == 0
-      return true # there are not two stones
+  # calculate score for stone placed with n fitting neighbours
+  # the score depends on previous 4-ways, etc.
+  def calculate_score(fit_count)
+    bonus = [25, 50, 100, 200, 400, 600, 800, 1000, 5000, 10000, 25000, 50000]
+    score = 2 ** (fit_count + self.four_count - 1)
+    score += bonus[self.four_count + 1] if fit_count == 4
+    if self.current_stone_id == 71
+      score += 1000
+    elsif self.current_stone_id == 70
+      score += 500
+    elsif self.current_stone_id == 69
+      score += 100
     end
-    if stone["color"] != current_stone["color"] && stone["symbol"] != current_stone["symbol"]
-      return false
-    end
-    result[:neighs] += 1
-    if stone["color"] == current_stone["color"]
-      result[:same_color] += 1
-    end
-    if stone["symbol"] == current_stone["symbol"]
-      result[:same_symbol] += 1
-    end
-    return true
+    return score
   end
 
   # return 1,2,3,4: 1-to-4-way-fit  return 0: not fitting
@@ -140,6 +145,26 @@ class Game < ApplicationRecord
         return 0
       end
     end
+  end
+
+  # result: hash with "neighs","same_color","same_symbol"
+  # returns false if color and symbol is different
+  def compare_stone_with_current( stone, result )
+    current_stone = self.stones[self.current_stone_id]
+    if !stone || stone["color"] == 0
+      return true # there are not two stones
+    end
+    if stone["color"] != current_stone["color"] && stone["symbol"] != current_stone["symbol"]
+      return false
+    end
+    result[:neighs] += 1
+    if stone["color"] == current_stone["color"]
+      result[:same_color] += 1
+    end
+    if stone["symbol"] == current_stone["symbol"]
+      result[:same_symbol] += 1
+    end
+    return true
   end
 
   def set_debug_text text

@@ -67,6 +67,8 @@ class GamesController < ApplicationController
     end
 
     @game.create_stones
+    @game.score = 0;
+    @game.four_count = 0;
 
     #place the first six stones on the board
     @game.place_stone( 0,  0)
@@ -75,7 +77,6 @@ class GamesController < ApplicationController
     @game.place_stone(11,  7)
     @game.place_stone( 5,  3)
     @game.place_stone( 6,  4)
-
     respond_to do |format|
       if @game.save
         format.html { redirect_to @game, notice: 'Game was successfully created.' }

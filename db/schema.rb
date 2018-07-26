@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_25_113703) do
+ActiveRecord::Schema.define(version: 2018_07_26_155616) do
 
   create_table "games", force: :cascade do |t|
     t.text "board"
     t.text "stones"
     t.integer "current_stone_id"
+    t.integer "score"
+    t.integer "four_count"
   end
 
 end

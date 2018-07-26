@@ -7,8 +7,7 @@
 
 body {
   position: relative;
-  padding-top: 55px;
-  font-size: 1em;
+  padding-top: 60px;
   line-height: normal;
   color: #e0f0b0;
   background-color: #000;
@@ -36,18 +35,23 @@ a:hover,
 a:active,
 input[type="submit"]:hover {
   text-decoration: none;
-  color: #b0ffff;;//#c5c500;//#e0d000;
+  color: #b0ffff;//#c5c500;//#e0d000;
   background-color: transparent;
 }
 
 form.hidden-form {
-  /* position: absolute;
-  visibility: hidden; */
+  position: absolute;
+  visibility: hidden;
 }
 
 section {
   padding-top: 1em;
   padding-bottom: 2em;
+}
+
+.container,
+.container-fluid {
+  font-size: 1.5em;
 }
 
 /*-------------------  end general rules  ------------------------------------*/
@@ -71,20 +75,29 @@ section {
 
 /*-------------------  end navigation  ---------------------------------------*/
 
+.board-square {
+  float: left;
+  height: 4.4vw;
+}
 .stone {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
+  width: 4vw;
+  height: 4vw;
 
-  margin:0.1em;
-  border-radius: 0.2em;
+  margin: 0.2vw;
+  border-radius: 0.4vw;
   background-color: #000;
   color: #555;
-  line-height: 1.5em;
+  line-height: 4vw;
   text-align: center;
   /* font-weight: bold; */
-  font-size: 1.5em;
+  font-size: 2.5vw;
 }
+.score {
+  font-weight: bold;
+  color: #b0ffff;
+}
+.place-stone { cursor: pointer; }
 
 .color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 10, 50%, 70%); }
 .color2 { color: hsl( 70, 80%, 30%); background-color: hsl( 70, 50%, 70%); }
