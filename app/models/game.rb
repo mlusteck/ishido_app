@@ -5,7 +5,7 @@ class Game < ApplicationRecord
   def create_stones
     # create the stones
     #symbols = ["a","b","c","x","y","z"].shuffle
-    symbols = ["\u03C8","\u03B2","\u03B7","\u03B4","\u03BE","\u03C9"].shuffle
+    symbols = ["\u03C8","\u03B2","\u03B1","\u03B4","\u03BE","\u03C9"].shuffle
     colors  = [1, 2, 3, 4, 5, 6].shuffle
     self.stones = []
     first_stones = []  # all colors and symbols have to be present in the first 6 stones
@@ -84,6 +84,11 @@ class Game < ApplicationRecord
       fit_count = current_stone["fit_count"]
       self.four_count -= 1 if fit_count==4
       self.score -= calculate_score(fit_count)
+      self.score -= undo_penalty(self.undo_count)
+      if self.score < 0
+        self.score = 0
+      end
+      self.undo_count += 1
     end
   end
 
@@ -166,6 +171,12 @@ class Game < ApplicationRecord
       result[:same_symbol] += 1
     end
     return true
+  end
+
+  # depending on previous undo_last_move
+  # points are reduced after undo
+  def undo_penalty(undo_count)
+    return 2 ** undo_count
   end
 
   def set_debug_text text

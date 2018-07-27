@@ -69,6 +69,7 @@ class GamesController < ApplicationController
     @game.create_stones
     @game.score = 0;
     @game.four_count = 0;
+    @game.undo_count = 0;
 
     #place the first six stones on the board
     @game.place_stone( 0,  0)

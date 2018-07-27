@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_155616) do
+ActiveRecord::Schema.define(version: 2018_07_27_110617) do
 
   create_table "games", force: :cascade do |t|
     t.text "board"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2018_07_26_155616) do
     t.integer "current_stone_id"
     t.integer "score"
     t.integer "four_count"
+    t.integer "undo_count"
   end
 
 end

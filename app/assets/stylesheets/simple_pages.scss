@@ -49,11 +49,6 @@ section {
   padding-bottom: 2em;
 }
 
-.container,
-.container-fluid {
-  font-size: 1.5em;
-}
-
 /*-------------------  end general rules  ------------------------------------*/
 
 /********************  main layout  ********************************************/
@@ -63,9 +58,14 @@ aside {
   float: right;
 }
 div.main {
+  font-size: 3.0vw;
+  text-align: center;
   width: 80%;
   float: left;
 }
+
+div.main h1 { font-size: 4.0vw; }
+div.main ul { text-align: left; }
 
 aside {
    font-size: 2.0vw;
@@ -84,6 +84,11 @@ aside li {
   padding: 0.3em;
 }
 
+.rules-container {
+  width: 80%;
+  margin: 0 auto;
+  font-size: 0.8em;
+}
 /*-------------------  end main layout  ------------------------------------*/
 
 /********************  navigation  ********************************************/
@@ -177,6 +182,12 @@ aside li {
 /********************  media queries  *****************************************/
 
 @media screen and ( max-aspect-ratio: 9/10) {
+
+  .rules-container { font-size: 1.0em; }
+
+  div.main { font-size: 4vw; }
+  div.main h1 { font-size: 5.5vw; }
+
   .container-fluid {
     padding: 0 3vw;
   }

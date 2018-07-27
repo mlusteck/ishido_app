@@ -26,8 +26,8 @@
   <% if @game %>
     <p>
       <ul>
-        <li><span class="score"><%= @game.score %>123456</span> &nbsp; points</li>
-        <li><span class="score"><%= @game.four_count %></span> &nbsp; four-ways</li>
+        <li><span class="score"><%= @game.score %></span> &nbsp; point<%= 's' if @game.score != 1 %></li>
+        <li><span class="score"><%= @game.four_count %></span> &nbsp; four-way<%= 's' if @game.four_count != 1 %></li>
         <li><span class="score"><%= 72 - @game.current_stone_id %></span> &nbsp;
                   stone<%= 's' if @game.current_stone_id != 71 %> left</li>
       </ul>
@@ -39,8 +39,9 @@
     <% end %>
     <p>
       <%= form_tag( games_path + "/" + @game.id.to_s + "/undo", method: :put ) do %>
-        <%= submit_tag "Undo last move" %>
+        <%= submit_tag "Undo" %>
       <% end %>
+      (<span class="score"><%= (-@game.undo_penalty(@game.undo_count))  %></span> penalty)
       <%= form_tag( games_path + "/" + @game.id.to_s + "/set_stone", method: :put, class:"hidden-form") do %>
         <input type="hidden" id="board_x" name="board_x" value="2" />
         <input type="hidden" id="board_y" name="board_y" value="2" />
