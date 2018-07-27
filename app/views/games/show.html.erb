@@ -1,12 +1,19 @@
+<%# the main layout has two yield-places, %>
+<%# one in the main 'board area' and one in the aside area %>
+
+<%# the board is written into the main area (yield)%>
 <% if @game %>
   <div class="board">
   <% 8.times do |board_y| %>
     <% 12.times do |board_x| %>
       <% stone = @game.get_stone(board_x, board_y) %>
-      <% if stone["color"] != 0 %>
+      <% if stone["color"] != 0 # 0 indicates background%>
         <div class="board-square"><span class='stone symbol<%= stone["symbol"] %>
                     color<%= stone["color"] %>' ><%= stone["symbol"] %></span></div>
-      <% else %>
+      <% else  %>
+        <%#  search for squares where the current stone fits, %>
+        <%#  mark them with the clickable 'place-stone' class %>
+        <%#  (on click JS sends put-action set_stone via the hidden form in the aside section) %>
         <% fit_count = @game.current_stone_fit_count(board_x, board_y) %>
         <% if fit_count == 0 %>
           <div class="board-square"><span class='stone' ><%= stone["symbol"] %></span></div>
@@ -22,10 +29,12 @@
 </div><!-- end board -->
 <% end %>
 
+<%# the actions and scores are written into the aside column (yield :aside) %>
 <% content_for :aside do %>
   <% if @game %>
     <p>
       <ul>
+        <%# check singular/plural, insert 's' if necessary %>
         <li><span class="score"><%= @game.score %></span> &nbsp; point<%= 's' if @game.score != 1 %></li>
         <li><span class="score"><%= @game.four_count %></span> &nbsp; four-way<%= 's' if @game.four_count != 1 %></li>
         <li><span class="score"><%= 72 - @game.current_stone_id %></span> &nbsp;
@@ -38,10 +47,12 @@
        </div>
     <% end %>
     <p>
+      <%# undo move via put /games/:id/undo %>
       <%= form_tag( games_path + "/" + @game.id.to_s + "/undo", method: :put ) do %>
         <%= submit_tag "Undo" %>
       <% end %>
       (<span class="score"><%= (-@game.undo_penalty(@game.undo_count))  %></span> penalty)
+      <%# set stone via put /games/:id/set_stone, called via JS when clicking on marked squares %>
       <%= form_tag( games_path + "/" + @game.id.to_s + "/set_stone", method: :put, class:"hidden-form") do %>
         <input type="hidden" id="board_x" name="board_x" value="2" />
         <input type="hidden" id="board_y" name="board_y" value="2" />
