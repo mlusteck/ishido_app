@@ -7,7 +7,7 @@
 
 body {
   position: relative;
-  padding-top: 60px;
+  padding-top: 2vw;
   line-height: normal;
   color: #e0f0b0;
   background-color: #000;
@@ -56,12 +56,58 @@ section {
 
 /*-------------------  end general rules  ------------------------------------*/
 
+/********************  main layout  ********************************************/
+#my-navbar,
+aside {
+  width: 20%;
+  float: right;
+}
+div.main {
+  width: 80%;
+  float: left;
+}
+
+aside {
+   font-size: 2.0vw;
+   text-align: center;
+   padding-right: 0.5em;
+}
+
+aside ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+aside li {
+  display: block;
+  padding: 0.3em;
+}
+
+/*-------------------  end main layout  ------------------------------------*/
+
 /********************  navigation  ********************************************/
 #my-navbar {
   background-color: #000;
-  font-size: 1.2em;
+  font-size: 2.5vw;
   font-weight: bold;
+  text-align: center;
+  padding-bottom: 1em;
+  padding-right:  0.5em;
 }
+
+#my-navbar a.nav-brand { font-size: 5.2vw; }
+
+#my-navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#my-navbar li {
+  display: inline-block;
+}
+
 #my-navbar ul,
 #my-navbar a:link,
 #my-navbar a:visited {
@@ -75,42 +121,133 @@ section {
 
 /*-------------------  end navigation  ---------------------------------------*/
 
+/********************  board and stones  **************************************/
+
+.board {
+  width: 90%;
+  margin: 0 auto;
+}
+
 .board-square {
   float: left;
-  height: 4.4vw;
+  height: 5.5vw;
 }
+
 .stone {
   display: inline-block;
-  width: 4vw;
-  height: 4vw;
+  width: 5vw;
+  height: 5vw;
 
-  margin: 0.2vw;
-  border-radius: 0.4vw;
+  margin: 0.25vw;
+  border-radius: 0.5vw;
   background-color: #000;
   color: #555;
-  line-height: 4vw;
+  line-height: 5vw;
   text-align: center;
+  font-family: 'Times New Roman', serif;
   /* font-weight: bold; */
-  font-size: 2.5vw;
+  font-size: 3.125vw;
 }
+
+.next-square .stone {
+  width: 10vw;
+  height: 10vw;
+
+  margin: 0.5vw;
+  border-radius: 1vw;
+  line-height: 10vw;
+  font-size: 6.25vw;
+}
+
 .score {
   font-weight: bold;
   color: #b0ffff;
 }
 .place-stone { cursor: pointer; }
 
-.color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 10, 50%, 70%); }
-.color2 { color: hsl( 70, 80%, 30%); background-color: hsl( 70, 50%, 70%); }
-.color3 { color: hsl(130, 80%, 30%); background-color: hsl(130, 50%, 70%); }
-.color4 { color: hsl(190, 80%, 30%); background-color: hsl(190, 50%, 70%); }
-.color5 { color: hsl(250, 80%, 30%); background-color: hsl(250, 50%, 70%); }
-.color6 { color: hsl(310, 80%, 30%); background-color: hsl(310, 50%, 70%); }
+.color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 20, 40%, 70%); }
+.color2 { color: hsl( 70, 80%, 30%); background-color: hsl( 80, 40%, 70%); }
+.color3 { color: hsl(130, 80%, 30%); background-color: hsl(140, 40%, 70%); }
+.color4 { color: hsl(190, 80%, 30%); background-color: hsl(200, 40%, 70%); }
+.color5 { color: hsl(250, 80%, 30%); background-color: hsl(260, 40%, 70%); }
+.color6 { color: hsl(310, 80%, 30%); background-color: hsl(320, 40%, 70%); }
 
+/*-------------------  end board and stones  ---------------------------------*/
 
+/********************  media queries  *****************************************/
+
+@media screen and ( max-aspect-ratio: 9/10) {
+  .container-fluid {
+    padding: 0 3vw;
+  }
+
+  #my-navbar,
+  aside,
+  div.main {
+    width: 100%;
+  }
+
+  #my-navbar {
+    padding-top: 3vw;
+    padding-bottom: 6vw;
+  }
+
+  .board {  width: 100%; }
+
+  .board-square { height: 7.7vw; }
+
+  .stone {
+    width: 7vw;
+    height: 7vw;
+    margin: 0.35vw;
+    border-radius: 0.7vw;
+    line-height: 7vw;
+    font-size: 4.4vw;
+  }
+
+  #my-navbar a.nav-brand,
+  #my-navbar li {
+    font-size: 7vw;
+  }
+
+  #my-navbar li {
+    font-weight: normal;
+  }
+  #my-navbar a.nav-brand {
+    padding-right: 2em;
+    font-weight: bold;
+  }
+
+  aside {
+     font-size: 3.8vw;
+     text-align: center;
+     padding-right: 0.5em;
+  }
+
+  aside ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  aside li {
+    display: inline-block;
+  }
+}
+
+@media screen and ( max-aspect-ratio: 3/4) {
+  aside,
+  div.main {
+    padding: 6vw 0;
+  }
+}
+
+/*-------------------  end media queries  ------------------------------------*/
 
 /********************  footer  ************************************************/
 footer {
-  min-height: 10em;
+  text-align: center;
+  font-size: 1.5vw;
   padding: 20px;
   color: #709040;
   background-color: #000;

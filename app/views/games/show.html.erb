@@ -1,34 +1,42 @@
-<div class="container">
+<% if @game %>
+  <div class="board">
+  <% 8.times do |board_y| %>
+    <% 12.times do |board_x| %>
+      <% stone = @game.get_stone(board_x, board_y) %>
+      <% if stone["color"] != 0 %>
+        <div class="board-square"><span class='stone symbol<%= stone["symbol"] %>
+                    color<%= stone["color"] %>' ><%= stone["symbol"] %></span></div>
+      <% else %>
+        <% fit_count = @game.current_stone_fit_count(board_x, board_y) %>
+        <% if fit_count == 0 %>
+          <div class="board-square"><span class='stone' ><%= stone["symbol"] %></span></div>
+        <% else %>
+          <div class="board-square"><span class='stone place-stone'
+                data-board-x='<%= board_x %>'
+                data-board-y='<%= board_y %>'><%= "\u25cf" %></span></div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <div style="clear: both;"></div>
+  <% end %>
+</div><!-- end board -->
+<% end %>
+
+<% content_for :aside do %>
   <% if @game %>
     <p>
-      <% 8.times do |board_y| %>
-        <% 12.times do |board_x| %>
-          <% stone = @game.get_stone(board_x, board_y) %>
-          <% if stone["color"] != 0 && stone["symbol"] >= "a" && stone["symbol"] <= "z"%>
-            <div class="board-square"><span class='stone symbol<%= stone["symbol"] %>
-                        color<%= stone["color"] %>' ><%= stone["symbol"] %></span></div>
-          <% else %>
-            <% fit_count = @game.current_stone_fit_count(board_x, board_y) %>
-            <% if fit_count == 0 %>
-              <div class="board-square"><span class='stone' ><%= stone["symbol"] %></span></div>
-            <% else %>
-              <div class="board-square"><span class='stone place-stone'
-                    data-board-x='<%= board_x %>'
-                    data-board-y='<%= board_y %>'><%= "\u25cf" %></span></div>
-            <% end %>
-          <% end %>
-        <% end %>
-        <div style="clear: both;"></div>
-      <% end %>
+      <ul>
+        <li><span class="score"><%= @game.score %>123456</span> &nbsp; points</li>
+        <li><span class="score"><%= @game.four_count %></span> &nbsp; four-ways</li>
+        <li><span class="score"><%= 72 - @game.current_stone_id %></span> &nbsp;
+                  stone<%= 's' if @game.current_stone_id != 71 %> left</li>
+      </ul>
     </p>
-    <p>
-      Score: <span class="score"><%= @game.score %></span> &nbsp;|&nbsp;
-      Four-Ways: <span class="score"><%= @game.four_count %></span> &nbsp;|&nbsp;
-      Stones left: <span class="score"><%= 72 - @game.current_stone_id %></span>
-      <% if stone = @game.get_current_stone %>
-         &nbsp;|&nbsp; Next Stone: <span class='stone symbol<%= stone["symbol"] %> color<%= stone["color"] %>' ><%= stone["symbol"] %></span>
-      <% end %>
-    </p>
+    <% if stone = @game.get_current_stone %>
+       <div class="next-square">
+         <span class='stone symbol<%= stone["symbol"] %> color<%= stone["color"] %>' ><%= stone["symbol"] %></span>
+       </div>
+    <% end %>
     <p>
       <%= form_tag( games_path + "/" + @game.id.to_s + "/undo", method: :put ) do %>
         <%= submit_tag "Undo last move" %>
@@ -39,14 +47,5 @@
         <%= submit_tag "Set stone" %>
       <% end %>
     </p>
-    <p>
-      <strong>Game ID: </strong><%= @game.id %> &mdash;
-      <%= link_to 'Back', games_path, class: "edit-link" %>
-    </p>
-  <% else %>
-    <p>
-      <strong>No Order found with this ID.</strong>
-    </p>
   <% end %>
-  <p id="notice"><%= notice %></p>
-</div>
+<% end %>

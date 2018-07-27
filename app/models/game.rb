@@ -4,7 +4,8 @@ class Game < ApplicationRecord
 
   def create_stones
     # create the stones
-    symbols = ["a","b","c","x","y","z"].shuffle
+    #symbols = ["a","b","c","x","y","z"].shuffle
+    symbols = ["\u03C8","\u03B2","\u03B7","\u03B4","\u03BE","\u03C9"].shuffle
     colors  = [1, 2, 3, 4, 5, 6].shuffle
     self.stones = []
     first_stones = []  # all colors and symbols have to be present in the first 6 stones
