@@ -150,11 +150,11 @@ aside li {
   border-radius: 0.5vw;
   background-color: #000;
   color: #555;
-  line-height: 5.5vw;
   text-align: center;
   font-family: 'Times New Roman', serif;
   /* font-weight: bold; */
   font-size: 3.4vw;
+  line-height: 1.4;
 }
 
 .next-square .stone {
@@ -163,7 +163,6 @@ aside li {
 
   margin: 0.5vw;
   border-radius: 1vw;
-  line-height: 10vw;
   font-size: 6.25vw;
 }
 
@@ -174,7 +173,7 @@ aside li {
 .place-stone { cursor: pointer; }
 
 .color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 20, 40%, 70%); }
-.color2 { color: hsl( 70, 80%, 30%); background-color: hsl( 80, 40%, 70%); }
+.color2 { color: hsl( 60, 80%, 30%); background-color: hsl( 70, 40%, 70%); }
 .color3 { color: hsl(130, 80%, 30%); background-color: hsl(140, 40%, 70%); }
 .color4 { color: hsl(190, 80%, 30%); background-color: hsl(200, 40%, 70%); }
 .color5 { color: hsl(250, 80%, 30%); background-color: hsl(260, 40%, 70%); }
@@ -199,7 +198,6 @@ form.hidden-form {
     height: 4.5vw;
     margin: 0.25vw;
     border-radius: 0.5vw;
-    line-height: 4.5vw;
     font-size: 3vw;
   }
 }
@@ -235,7 +233,6 @@ form.hidden-form {
     height: 6vw;
     margin: 0.3vw;
     border-radius: 0.6vw;
-    line-height: 6vw;
     font-size: 3.6vw;
   }
 
@@ -304,7 +301,6 @@ form.hidden-form {
     height: 7vw;
     margin: 0.35vw;
     border-radius: 0.7vw;
-    line-height: 7vw;
     font-size: 4.4vw;
   }
 

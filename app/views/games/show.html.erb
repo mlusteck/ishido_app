@@ -4,29 +4,13 @@
 <%# the board is written into the main area (yield)%>
 <% if @game %>
   <div class="board">
-  <% 8.times do |board_y| %>
-    <% 12.times do |board_x| %>
-      <% stone = @game.get_stone(board_x, board_y) %>
-      <% if stone["color"] != 0 # 0 indicates background%>
-        <div class="board-square"><span class='stone symbol<%= stone["symbol"] %>
-                    color<%= stone["color"] %>' ><%= stone["symbol"] %></span></div>
-      <% else  %>
-        <%#  search for squares where the current stone fits, %>
-        <%#  mark them with the clickable 'place-stone' class %>
-        <%#  (on click JS sends put-action set_stone via the hidden form in the aside section) %>
-        <% fit_count = @game.current_stone_fit_count(board_x, board_y) %>
-        <% if fit_count == 0 %>
-          <div class="board-square"><span class='stone' ><%= stone["symbol"] %></span></div>
-        <% else %>
-          <div class="board-square"><span class='stone place-stone'
-                data-board-x='<%= board_x %>'
-                data-board-y='<%= board_y %>'><%= "\u25cf" %></span></div>
-        <% end %>
+    <% 8.times do |board_y| %>
+      <% 12.times do |board_x| %>
+        <%= render partial: "board_square", locals: { board_x: board_x, board_y: board_y } %>
       <% end %>
+      <div style="clear: both;"></div>
     <% end %>
-    <div style="clear: both;"></div>
-  <% end %>
-</div><!-- end board -->
+  </div><!-- end board -->
 <% end %>
 
 <%# the actions and scores are written into the aside column (yield :aside) %>
@@ -43,7 +27,7 @@
     </p>
     <% if stone = @game.get_current_stone %>
        <div class="next-square">
-         <span class='stone symbol<%= stone["symbol"] %> color<%= stone["color"] %>' ><%= stone["symbol"] %></span>
+         <span class='stone color<%= stone["color"] %>' ><%= stone["symbol"] %></span>
        </div>
     <% end %>
     <p>

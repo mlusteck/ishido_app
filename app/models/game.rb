@@ -5,7 +5,7 @@ class Game < ApplicationRecord
   def create_stones
     # create the stones
     #symbols = ["a","b","c","x","y","z"].shuffle
-    symbols = ["\u03C8","\u03B2","\u03B1","\u03B4","\u03BE","\u03C9"].shuffle
+    symbols = ["\u03C8","\u03B2","\u03B1","\u03B4","\u03BE","\u03C9"].shuffle # greek letters
     colors  = [1, 2, 3, 4, 5, 6].shuffle
     self.stones = []
     first_stones = []  # all colors and symbols have to be present in the first 6 stones
@@ -36,6 +36,7 @@ class Game < ApplicationRecord
     if board_x < 0 || board_y < 0 || board_x > 11 || board_y > 7
       return
     end
+
     if self.current_stone_id < self.stones.length
       current_stone = self.stones[self.current_stone_id]
       fit_count = current_stone_fit_count(board_x, board_y)
@@ -53,6 +54,7 @@ class Game < ApplicationRecord
     if board_x < 0 || board_y < 0 || board_x > 11 || board_y > 7
       return nil
     end
+
     return self.board[board_x + 12 * board_y]
   end
 
@@ -60,6 +62,7 @@ class Game < ApplicationRecord
     if self.current_stone_id  > 71
       return nil
     end
+
     return self.stones[self.current_stone_id]
   end
 
@@ -67,6 +70,7 @@ class Game < ApplicationRecord
     if board_x < 0 || board_y < 0 || board_x > 11 || board_y > 7
       return
     end
+
     self.board[board_x + 12 * board_y] = {"symbol" => "\u25CC", "color" => 0, "x" => board_x, "y" => board_y, "fit_count" => 0 }
   end
 
@@ -88,6 +92,7 @@ class Game < ApplicationRecord
       if self.score < 0
         self.score = 0
       end
+
       self.undo_count += 1
     end
   end
@@ -105,6 +110,7 @@ class Game < ApplicationRecord
     elsif self.current_stone_id == 69
       score += 100
     end
+
     return score
   end
 
@@ -113,6 +119,7 @@ class Game < ApplicationRecord
     if board_x < 0 || board_y < 0 || board_x > 11 || board_y > 7
       return 0
     end
+
     # is there no stone left or a stone on this square?
     if self.current_stone_id >= 72 || self.get_stone(board_x, board_y)["color"] != 0
       return 0
@@ -130,6 +137,7 @@ class Game < ApplicationRecord
       if !neigh_stone
         return 0
       end
+
       if !self.compare_stone_with_current(neigh_stone, result) # for each neighbour color or symbol has to be the same
         return 0
       end
@@ -160,16 +168,20 @@ class Game < ApplicationRecord
     if !stone || stone["color"] == 0
       return true # there are not two stones
     end
+
     if stone["color"] != current_stone["color"] && stone["symbol"] != current_stone["symbol"]
       return false
     end
+
     result[:neighs] += 1
     if stone["color"] == current_stone["color"]
       result[:same_color] += 1
     end
+
     if stone["symbol"] == current_stone["symbol"]
       result[:same_symbol] += 1
     end
+    
     return true
   end
 
