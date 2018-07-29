@@ -12,7 +12,17 @@
   <% if fit_count == 0 %>
     <div class="board-square"><span class='stone' ><%= stone["symbol"] %></span></div>
   <% else %>
-    <div class="board-square"><span class='stone place-stone'
+    <%
+    stone_class = "stone place-stone"
+    if fit_count == 2
+      stone_class += " two-fit"
+    elsif fit_count == 3
+      stone_class += " three-fit"
+    elsif fit_count == 4
+      stone_class += " four-way"
+    end
+    %>
+    <div class="board-square"><span class='<%= stone_class %>'
           data-board-x='<%= board_x %>'
           data-board-y='<%= board_y %>'><%= "\u25cf" %></span></div>
   <% end %>
