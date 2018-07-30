@@ -44,10 +44,11 @@ class Game < ApplicationRecord
       if fit_count < 1
         return    # we are not allowed to place a stone there
       end
+    else
+      fit_count = 0
     end
 
     current_stone = self.stones[self.current_stone_id]
-    fit_count = current_stone_fit_count(board_x, board_y)
     current_stone["x"] = board_x
     current_stone["y"] = board_y
     current_stone["fit_count"] = fit_count

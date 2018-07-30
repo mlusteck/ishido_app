@@ -184,7 +184,7 @@ aside li {
 .color6 { color: hsl(310, 80%, 30%); background-color: hsl(320, 40%, 70%); }
 
 /* placing the stones on the board is done via JavaScript  submit calls for this hidden form */
-form.hidden-form {
+#hidden-form {
   position: absolute;
   visibility: hidden;
 }

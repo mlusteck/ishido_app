@@ -16,14 +16,14 @@
 //= require jquery3
 //= require_tree .
 
-$(document).ready( function () {
+$(document).on( "turbolinks:load", function () {
   $(".place-stone").click( function () {
     var board_x = $(this).attr("data-board-x");
     var board_y = $(this).attr("data-board-y");
     $("#board_x").attr("value", board_x );
     $("#board_y").attr("value", board_y );
-    $(".hidden-form").submit();
-  })
+    $("#hidden-form").submit();
+  });
 
   // color animation for four-way indicator
   function toFull(){
