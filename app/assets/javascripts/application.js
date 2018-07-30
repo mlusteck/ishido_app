@@ -15,12 +15,6 @@
 //= require turbolinks
 //= require jquery3
 //= require_tree .
-function toFull(){
-  $(".four-way").animate({opacity: '1.0'}, 1000, "swing", toDark );
-}
-function toDark(){
-  $(".four-way").animate({opacity: '0.7'}, 800, "swing", toFull );
-}
 
 $(document).ready( function () {
   $(".place-stone").click( function () {
@@ -31,7 +25,13 @@ $(document).ready( function () {
     $(".hidden-form").submit();
   })
 
+  // color animation for four-way indicator
+  function toFull(){
+    $(".four-way").animate({opacity: '1.0'}, 1000, "swing", toDark );
+  }
+  function toDark(){
+    $(".four-way").animate({opacity: '0.7'}, 800, "swing", toFull );
+  }
   $(".four-way").animate({opacity: '1.0'}, 100, "swing", toDark );
 
-  // color animation for four-way indicator
-  });
+}); // end document ready function

@@ -33,21 +33,28 @@ class Game < ApplicationRecord
 
   # place the next stone in the stones list on the board
   def place_stone(board_x, board_y)
-    if board_x < 0 || board_y < 0 || board_x > 11 || board_y > 7
-      return
+    if self.current_stone_id >= self.stones.length
+      return    #there are no stones left to be palced
     end
 
-    if self.current_stone_id < self.stones.length
-      current_stone = self.stones[self.current_stone_id]
-      fit_count = current_stone_fit_count(board_x, board_y)
-      current_stone["x"] = board_x
-      current_stone["y"] = board_y
-      current_stone["fit_count"] = fit_count
-      self.score += calculate_score( fit_count )
-      self.four_count += 1 if fit_count==4
-      self.board[board_x + 12 * board_y] = current_stone
-      self.current_stone_id += 1
+    # after setting up the square with the first 6 stones
+    # we have to check if the stone fits to his neighbours
+    if self.current_stone_id >= 6
+      fit_count = self.current_stone_fit_count(board_x, board_y)
+      if fit_count < 1
+        return    # we are not allowed to place a stone there
+      end
     end
+
+    current_stone = self.stones[self.current_stone_id]
+    fit_count = current_stone_fit_count(board_x, board_y)
+    current_stone["x"] = board_x
+    current_stone["y"] = board_y
+    current_stone["fit_count"] = fit_count
+    self.score += calculate_score( fit_count )
+    self.four_count += 1 if fit_count==4
+    self.board[board_x + 12 * board_y] = current_stone
+    self.current_stone_id += 1
   end
 
   def get_stone(board_x, board_y) # get stone or placeholder
@@ -181,7 +188,7 @@ class Game < ApplicationRecord
     if stone["symbol"] == current_stone["symbol"]
       result[:same_symbol] += 1
     end
-    
+
     return true
   end
 
