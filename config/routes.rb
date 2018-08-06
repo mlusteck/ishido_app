@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :users
   get 'simple_pages/rules'
   root 'simple_pages#index'
   put 'games/:id/set_stone', to: 'games#set_stone'

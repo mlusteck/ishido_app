@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+  belongs_to :user
   serialize :board, JSON
   serialize :stones, JSON
 
