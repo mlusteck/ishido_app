@@ -1,54 +1,80 @@
 class GamesController < ApplicationController
   def index
-    @games = Game.all
+    if user_signed_in?
+      @games = Game.where( user_id: current_user.id )
+    else
+      # guest games older than 2 days are removed
+      Game.where("created_at < ?", 2.days.ago).destroy_all
+
+      @games = Game.where( user_id: 1 )
+      # @games = []
+    end
   end
 
   def show
-    if(Game.exists?(params[:id]))
-      @game = Game.find(params[:id])
-    else
-      @game = nil
+    @game = Game.find_by(id: params[:id])
+    if(@game.name != params[:name])
+      respond_to do |format|
+        format.html { redirect_to games_path, alert: 'Wrong game name.'  }
+        format.json { render :show, status: :ok, location: games_path }
+      end
     end
   end
 
   def set_stone
-    if(!Game.exists?(params[:id]))
+    @game = Game.find_by(id: params[:id])
+    if(!@game)
       respond_to do |format|
-        format.html { redirect_to games_path }
+        format.html { redirect_to games_path, alert: 'An Error occurred.'  }
         format.json { render :show, status: :ok, location: games_path }
       end
+      return
+    elsif (@game.name != params[:name])
+      respond_to do |format|
+        format.html { redirect_to games_path, alert: 'Wrong game name.'  }
+        format.json { render :show, status: :ok, location: games_path }
+      end
+      return
     end
-    @game = Game.find(params[:id])
+
     board_x = params[:board_x].to_i
     board_y = params[:board_y].to_i
     @game.place_stone(board_x, board_y)
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, notice: 'Stone was placed at (' + params[:board_x] + ', ' + params[:board_y] + ')' }
+        format.html { redirect_to game_path(@game, name: @game.name), notice: params[:name] + 'Stone was placed at (' + params[:board_x] + ', ' + params[:board_y] + ')' }
         format.json { render :show, status: :ok, location: @game }
       else
-        format.html { redirect_to @game, notice: 'An Error occurred.' }
+        format.html { redirect_to game_path(@game, name: @game.name), alert: 'An Error occurred.' }
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def undo
-    if(!Game.exists?(params[:id]))
+    @game = Game.find_by(id: params[:id])
+    if(!@game)
       respond_to do |format|
-        format.html { redirect_to games_path }
+        format.html { redirect_to games_path, alert: 'An Error occurred.'  }
         format.json { render :show, status: :ok, location: games_path }
       end
+      return
+    elsif (@game.name != params[:name])
+      respond_to do |format|
+        format.html { redirect_to games_path, alert: 'Wrong game name.'  }
+        format.json { render :show, status: :ok, location: games_path }
+      end
+      return
     end
-    @game = Game.find(params[:id])
+
     @game.undo_last_move
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, notice: 'Undo.' }
+        format.html { redirect_to game_path(@game, name: @game.name), notice: 'Undo.' }
         format.json { render :show, status: :ok, location: @game }
       else
-        format.html { redirect_to games_path, notice: 'An Error occurred.' }
+        format.html { redirect_to game_path(@game, name: @game.name), alert: 'An Error occurred.'  }
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end
@@ -56,6 +82,8 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new
+    @game.name = ""
+    (0...10).each {|n| @game.name += ('a'..'z').to_a.sample }
 
     # set up the board with 12x8 empty squares
     #   symbols \u2218 : small circle,  \u2219 : small bullet, \u2217 : 6-star
@@ -78,12 +106,19 @@ class GamesController < ApplicationController
     @game.place_stone(11,  7)
     @game.place_stone( 5,  3)
     @game.place_stone( 6,  4)
+
+    if user_signed_in?
+      @game.user_id = current_user.id
+    else
+      @game.user_id = 1  # guest user game
+    end
+
     respond_to do |format|
       if @game.save
-        format.html { redirect_to @game, notice: 'Game was successfully created.' }
+        format.html { redirect_to game_path(@game, name: @game.name), notice: 'Game was successfully created.' }
         format.json { render :show, status: :ok, location: @game }
       else
-        format.html { redirect_to games_path, notice: 'An Error occurred. Game was not created.' }
+        format.html { redirect_to games_path, alert: 'An Error occurred. Game was not created.' }
         format.json { render json: @game.errors, status: :unprocessable_entity }
       end
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_06_103217) do
+ActiveRecord::Schema.define(version: 2018_08_06_162407) do
 
   create_table "games", force: :cascade do |t|
     t.text "board"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 2018_08_06_103217) do
     t.integer "four_count"
     t.integer "undo_count"
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
