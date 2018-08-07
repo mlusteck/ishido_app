@@ -32,6 +32,8 @@
             <a class="nav-brand" href="<%= root_path %>">ISHIDO</a>
           </li>
           <% if user_signed_in? %>
+            <li> <%= link_to "Games", games_path %> </li>
+            <li>&bull;</li>
             <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to 'Login', new_user_session_path %></li>
@@ -41,7 +43,7 @@
         </ul>
         <ul>
           <li>
-            <%= link_to "Games", games_path %>
+            <%= link_to "Scores", scores_path %>
           </li>
           <li>&bull;</li>
           <li>

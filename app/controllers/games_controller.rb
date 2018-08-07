@@ -40,10 +40,15 @@ class GamesController < ApplicationController
     board_x = params[:board_x].to_i
     board_y = params[:board_y].to_i
     @game.place_stone(board_x, board_y)
+    insert_score_ok = "null"
+    if @game.score > 0
+      insert_score_ok = ScoresController.helpers.insert_score @game.score, @game.user, @game.name
+    end
+
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to game_path(@game, name: @game.name), notice: params[:name] + 'Stone was placed at (' + params[:board_x] + ', ' + params[:board_y] + ')' }
+        format.html { redirect_to game_path(@game, name: @game.name) }
         format.json { render :show, status: :ok, location: @game }
       else
         format.html { redirect_to game_path(@game, name: @game.name), alert: 'An Error occurred.' }
@@ -82,8 +87,15 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new
+
+    if user_signed_in?
+      @game.user_id = current_user.id
+    else
+      @game.user_id = 1  # guest user game
+    end
+
     @game.name = ""
-    (0...10).each {|n| @game.name += ('a'..'z').to_a.sample }
+    (0...20).each {|n| @game.name += ('a'..'z').to_a.sample }
 
     # set up the board with 12x8 empty squares
     #   symbols \u2218 : small circle,  \u2219 : small bullet, \u2217 : 6-star
@@ -106,12 +118,6 @@ class GamesController < ApplicationController
     @game.place_stone(11,  7)
     @game.place_stone( 5,  3)
     @game.place_stone( 6,  4)
-
-    if user_signed_in?
-      @game.user_id = current_user.id
-    else
-      @game.user_id = 1  # guest user game
-    end
 
     respond_to do |format|
       if @game.save

@@ -5,8 +5,11 @@
   Start a <%= link_to 'new Game', games_path, class: "edit-link", method: :create %>
 </p>
 <p>
-  <%= link_to 'Resume', games_path, class: "edit-link" %> a game
+  Read the <%= link_to 'Rules', simple_pages_rules_path, class: "edit-link" %>
 </p>
 <p>
-  Read the <%= link_to 'Rules', simple_pages_rules_path, class: "edit-link" %>
+  <%= render partial: "shared/highscores", locals: { scores: Score.value_desc.first(3) } %>
+  See all <%= link_to 'Highscores', scores_path, class: "edit-link" %>
+</p>
+<p>
 </p>

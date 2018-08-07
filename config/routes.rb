@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   put 'games/:id/set_stone', to: 'games#set_stone'
   put 'games/:id/undo', to: 'games#undo'
   resources :games, only: [:index, :show, :create, :destroy]
+  resources :scores
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

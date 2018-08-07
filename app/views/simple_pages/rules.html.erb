@@ -1,6 +1,13 @@
 <div class="rules-container">
   <h1>Rules</h1>
+  <% if !user_signed_in? %>
   <p>
+    If you want to store your progress or want to see your name in the highscores,
+    you have to
+    <%= link_to 'sign up', new_user_registration_path %>/<%= link_to 'log in', new_user_session_path %>.
+  <p>
+  <% end %>
+
     The game has 72 stones, with a total of six colors and six symbols.
     There are two stones for each combination of color and symbol.
     Initially, the board has six stones on it,

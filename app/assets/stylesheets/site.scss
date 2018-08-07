@@ -19,6 +19,8 @@ h3 {
   color: #d5d550;//#c5c500;//#e0d000;
 }
 
+h1 { padding-bottom: 0.3em; }
+
 input[type="submit"] {
   background-color: #000;
   border: none;
@@ -42,6 +44,11 @@ input[type="submit"]:hover {
 section {
   padding-top: 1em;
   padding-bottom: 2em;
+}
+
+.score {
+  font-weight: bold;
+  color: #b0ffff;
 }
 
 /*-------------------  end general rules  ------------------------------------*/
@@ -218,6 +225,35 @@ form .btn-primary:hover {
 
 /*-------------------  end navigation  ---------------------------------------*/
 
+/********************  highscores  ********************************************/
+table.highscores { margin: 1em auto; }
+
+table.highscores td:nth-child(1) {
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+table.highscores td:nth-child(2) {
+  padding-right: 1em;
+  text-align: left;
+  font-weight: bold;
+  color: #f0e000;
+}
+
+table.highscores td:nth-child(3) {
+  text-align: right;
+  padding-right: 1em;
+}
+
+
+table.highscores td:nth-child(4) {
+  font-size: 0.7em;
+  font-style: italic;
+  text-align: left;
+}
+
+/*-------------------  end highscores  ---------------------------------------*/
+
 /********************  board and stones  **************************************/
 
 .board {
@@ -253,11 +289,6 @@ form .btn-primary:hover {
   margin: 0.5vw;
   border-radius: 1vw;
   font-size: 6.25vw;
-}
-
-.score {
-  font-weight: bold;
-  color: #b0ffff;
 }
 
 .two-fit { color: #888; }
