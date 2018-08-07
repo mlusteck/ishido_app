@@ -1,6 +1,6 @@
 module ScoresHelper
   def score_table_len
-    7
+    50
   end
 
   def low_scores
