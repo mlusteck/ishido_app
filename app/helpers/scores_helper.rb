@@ -15,19 +15,26 @@ module ScoresHelper
   def insert_score value, user, game_name
     # is the score high enough to enter the highscores?
     if Score.all.length >= score_table_len && Score.value_desc.last.value > value
-      return
+      return "score outside"
     end
 
     # is there yet a score from this game
     score = Score.find_by(user_id: user.id, game_name: game_name)
-    if score && score.value < value
-      score.value = value
-      score.save
-      return
+    if score
+      score.value = value if score.value < value
+      if score.save
+        return "score found and saved"
+      else
+        return "score found, not saved"
+      end
     end
 
     score = Score.new(value: value, user_id: user.id, game_name: game_name)
-    score.save
+    if score.save
+      return "score not found, new saved"
+    else
+      return "score not found, new not saved"
+    end
   end
 
   def get_rank game_name
