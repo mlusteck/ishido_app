@@ -54,7 +54,7 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to game_path(@game, name: @game.name), notice: insert_score_ok }
+        format.html { redirect_to game_path(@game, name: @game.name) }  #, notice: insert_score_ok }
         format.json { render :show, status: :ok, location: @game }
       else
         format.html { redirect_to game_path(@game, name: @game.name), alert: 'An Error occurred.' }

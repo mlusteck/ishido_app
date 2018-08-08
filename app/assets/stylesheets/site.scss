@@ -51,6 +51,16 @@ section {
   color: #b0ffff;
 }
 
+#notice,
+#alert {
+  text-align: center;
+  margin: 0;
+  padding: 0.3em;
+  font-size: 0.8em;
+  color: #a0d080;
+}
+
+#alert { color: #f06050; }
 /*-------------------  end general rules  ------------------------------------*/
 
 /********************  main layout  ********************************************/
@@ -116,12 +126,13 @@ aside form {
   padding-bottom: 0;
 }
 
-div.main .inline-form {
+.inline-form {
   display: inline-block;
   font-size: 1em;
-  padding-bottom: 0.3em;
+  padding-bottom: 0;
 }
-div.main .inline-form input{ display: inline-block; }
+
+.inline-form input{ display: inline-block; }
 
 form .field {
   color: #e0f0b0;
@@ -270,9 +281,17 @@ table.highscores td:nth-child(3) {
 
 
 table.highscores td:nth-child(4) {
-  font-size: 0.7em;
+  font-size: 0.6em;
   font-style: italic;
   text-align: left;
+}
+
+table.highscores td:nth-child(5) {
+  font-size: 0.5em;
+  font-style: italic;
+  text-align: left;
+  color: #999;
+
 }
 
 /*-------------------  end highscores  ---------------------------------------*/
