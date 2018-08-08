@@ -31,3 +31,6 @@
 
 #ignore mac folder info
 *.DS_Store
+
+# Ignore application configuration
+/config/application.yml
