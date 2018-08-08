@@ -78,7 +78,6 @@ class GamesController < ApplicationController
       return
     end
 
-    GamesController.helpers.set_current_game @game
     @game.undo_last_move
     respond_to do |format|
       if @game.save
