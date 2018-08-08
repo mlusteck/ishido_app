@@ -19,7 +19,7 @@ ActionMailer::Base.delivery_method = :smtp
 #
 ActionMailer::Base.smtp_settings = {
  :address              => "sslout.df.eu",
- :port                 => 465,
+ :port                 => 587, #465,
  :user_name            => ENV['ml_username'],
  :password             => ENV['ml_password'],
  :authentication       => "plain",
