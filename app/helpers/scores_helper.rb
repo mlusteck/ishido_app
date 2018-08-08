@@ -19,9 +19,10 @@ module ScoresHelper
     end
 
     # is there yet a score from this game
-    score = Score.find_by(user_id: user.id, game_name: game_name)
+    score = Score.find_by(game_name: game_name)
     if score
       score.value = value if score.value < value
+      score.user_id = user.id
       if score.save
         return "score found and saved"
       else

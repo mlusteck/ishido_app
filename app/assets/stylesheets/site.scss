@@ -66,7 +66,7 @@ aside {
   top: 0;
   padding-top: 1.5vw;
 }
-aside { top: 12vw; }
+aside { top: 14vw; }
 
 div.main {
   font-size: 3.0vw;
@@ -91,7 +91,7 @@ aside ul {
 
 aside li {
   display: block;
-  padding: 0.3em;
+  padding: 0.1em;
 }
 
 .rules-container {
@@ -109,6 +109,12 @@ form {
   font-size: 1.2rem;
   padding-bottom: 2em;
 }
+
+aside form {
+  text-align: center;
+  font-size: 1.0em;
+  padding-bottom: 0;
+  }
 
 form .field {
   color: #e0f0b0;
@@ -193,7 +199,7 @@ form .btn-primary:hover {
 /********************  navigation  ********************************************/
 #my-navbar {
   background-color: #000;
-  font-size: 2.2vw;
+  font-size: 2.0vw;
   font-weight: bold;
   text-align: center;
   padding-bottom: 0.5em;
@@ -210,6 +216,7 @@ form .btn-primary:hover {
 
 #my-navbar li {
   display: inline-block;
+  padding: 0 0.2em;
 }
 
 #my-navbar ul,
@@ -336,17 +343,19 @@ table.highscores td:nth-child(4) {
 
   .container-fluid { padding: 0 3vw; }
 
-  #my-navbar,
   aside,
   div.main {
     width: 100%;
   }
 
-  div.main { padding-top: 10vw; }
+  div.main { padding-top: 14vw; }
 
   #my-navbar {
     padding-top: 3vw;
     padding-bottom: 3vw;
+    width: 100%;
+    right: 0;
+
   }
 
   .board {  width: 90%; }
@@ -360,16 +369,14 @@ table.highscores td:nth-child(4) {
     font-size: 3.6vw;
   }
 
-  #my-navbar a.nav-brand,
-  #my-navbar li {
-    font-size: 4vw;
-  }
+  #my-navbar a.nav-brand { font-size: 5vw; }
+  #my-navbar li { font-size: 4vw; }
 
   #my-navbar li {
     font-weight: normal;
   }
   #my-navbar a.nav-brand {
-    padding-right: 2em;
+    padding-right: 1em;
     font-weight: bold;
   }
 
@@ -410,7 +417,7 @@ table.highscores td:nth-child(4) {
     width: 100%;
   }
 
-  div.main { padding-top: 16vw; }
+  div.main { padding-top: 18vw; }
 
   #my-navbar {
     padding-top: 3vw;
@@ -428,16 +435,15 @@ table.highscores td:nth-child(4) {
     font-size: 4.4vw;
   }
 
-  #my-navbar a.nav-brand,
-  #my-navbar li {
-    font-size: 7vw;
-  }
+  #my-navbar a.nav-brand { font-size: 7vw; }
+
+  #my-navbar li { font-size: 5vw; }
 
   #my-navbar li {
     font-weight: normal;
   }
   #my-navbar a.nav-brand {
-    padding-right: 2em;
+    padding-right: 1em;
     font-weight: bold;
   }
 
@@ -465,7 +471,7 @@ table.highscores td:nth-child(4) {
 @media screen and ( max-aspect-ratio: 3/4) {
   aside { padding: 4vw 0; }
   div.main {
-    padding-top: 18vw;
+    padding-top: 20vw;
     padding-bottom: 3vw;
   }
 }

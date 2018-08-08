@@ -33,23 +33,29 @@
           </li>
           <% if user_signed_in? %>
             <li> <%= link_to "Games", games_path %> </li>
-            <li>&bull;</li>
             <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
           <% else %>
             <li><%= link_to 'Login', new_user_session_path %></li>
-            <li>&bull;</li>
             <li><%= link_to 'Sign up!', new_user_registration_path %></li>
           <% end %>
-        </ul>
-        <ul>
           <li>
             <%= link_to "Scores", scores_path %>
           </li>
-          <li>&bull;</li>
           <li>
             <%= link_to "Rules", simple_pages_rules_path %>
           </li>
+          <% if session[:current_game_name] %>
+            <% if current_game = Game.find_by(name: session[:current_game_name]) %>
+             <li>
+               <%= link_to "Resume", game_path(current_game, name:current_game.name) %>
+             </li>
+            <% end %>
+          <% end %>
+          <li>
+            <%= link_to 'New', games_path, method: :create %>
+          </li>
         </ul>
+
       </nav>
       <div class="main">
         <%= yield  %>

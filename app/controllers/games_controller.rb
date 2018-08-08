@@ -4,20 +4,20 @@ class GamesController < ApplicationController
       @games = Game.where( user_id: current_user.id )
     else
       # guest games older than 2 days are removed
-      Game.where("created_at < ?", 2.days.ago).destroy_all
-
-      @games = Game.where( user_id: 1 )
-      # @games = []
+      Game.where("created_at < ?", 7.days.ago).destroy_all
+      @games = []
     end
   end
 
   def show
     @game = Game.find_by(id: params[:id])
-    if(@game.name != params[:name])
+    if(!@game || @game.name != params[:name])
       respond_to do |format|
         format.html { redirect_to games_path, alert: 'Wrong game name.'  }
         format.json { render :show, status: :ok, location: games_path }
       end
+    else
+      session[:current_game_name] = @game.name
     end
   end
 
@@ -35,6 +35,11 @@ class GamesController < ApplicationController
         format.json { render :show, status: :ok, location: games_path }
       end
       return
+    end
+
+    session[:current_game_name] = @game.name
+    if user_signed_in? && @game.user_id == 1
+      @game.user_id = current_user.id
     end
 
     board_x = params[:board_x].to_i
@@ -73,6 +78,7 @@ class GamesController < ApplicationController
       return
     end
 
+    GamesController.helpers.set_current_game @game
     @game.undo_last_move
     respond_to do |format|
       if @game.save
@@ -118,6 +124,8 @@ class GamesController < ApplicationController
     @game.place_stone(11,  7)
     @game.place_stone( 5,  3)
     @game.place_stone( 6,  4)
+
+    session[:current_game_name] = @game.name
 
     respond_to do |format|
       if @game.save
