@@ -18,8 +18,8 @@ ActionMailer::Base.delivery_method = :smtp
 #}
 #
 ActionMailer::Base.smtp_settings = {
- :address              => "smtp.mischa-lusteck.de",
- :port                 => 25,
+ :address              => "sslout.df.eu",
+ :port                 => 465,
  :user_name            => ENV['ml_username'],
  :password             => ENV['ml_password'],
  :authentication       => "plain",
