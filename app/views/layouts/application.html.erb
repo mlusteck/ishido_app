@@ -52,7 +52,9 @@
             <% end %>
           <% end %>
           <li>
-            <%= link_to 'New', games_path, method: :create %>
+            <%= form_with(url: games_path, method: 'post', local: true, class: "inline-form")  do %>
+              <%= submit_tag "New", name: "game[submit]" %>
+            <% end %>
           </li>
         </ul>
 

@@ -114,7 +114,14 @@ aside form {
   text-align: center;
   font-size: 1.0em;
   padding-bottom: 0;
-  }
+}
+
+div.main .inline-form {
+  display: inline-block;
+  font-size: 1em;
+  padding-bottom: 0.3em;
+}
+div.main .inline-form input{ display: inline-block; }
 
 form .field {
   color: #e0f0b0;
@@ -219,14 +226,23 @@ form .btn-primary:hover {
   padding: 0 0.2em;
 }
 
+#my-navbar input{
+  font-size: 2.0vw;
+  font-weight: bold;
+}
+
 #my-navbar ul,
 #my-navbar a:link,
-#my-navbar a:visited {
+#my-navbar a:visited,
+#my-navbar input
+{
   color: #f0e000;//#e0f0b0; //#a0d7d0;
 }
 
 #my-navbar a:hover,
-#my-navbar a:active {
+#my-navbar a:active,
+#my-navbar input:hover
+{
   color: #ffff90;//#fff090;
 }
 
@@ -370,11 +386,13 @@ table.highscores td:nth-child(4) {
   }
 
   #my-navbar a.nav-brand { font-size: 5vw; }
-  #my-navbar li { font-size: 4vw; }
 
-  #my-navbar li {
+  #my-navbar li,
+  #my-navbar input {
+    font-size: 4vw;
     font-weight: normal;
   }
+
   #my-navbar a.nav-brand {
     padding-right: 1em;
     font-weight: bold;
@@ -437,11 +455,12 @@ table.highscores td:nth-child(4) {
 
   #my-navbar a.nav-brand { font-size: 7vw; }
 
-  #my-navbar li { font-size: 5vw; }
-
-  #my-navbar li {
+  #my-navbar li,
+  #my-navbar input {
+    font-size: 5vw;
     font-weight: normal;
   }
+
   #my-navbar a.nav-brand {
     padding-right: 1em;
     font-weight: bold;

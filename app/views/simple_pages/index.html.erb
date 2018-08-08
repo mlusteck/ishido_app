@@ -1,9 +1,12 @@
 <br />
 <br />
 <h1>Welcome to  ISHIDO</h1>
-<p>
-  Start a <%= link_to 'new Game', games_path, class: "edit-link", method: :create %>
-</p>
+<div>
+  Start a
+  <%= form_with(url: games_path, method: 'post', local: true, class: "inline-form")  do %>
+    <%= submit_tag "new Game", name: "game[submit]" %>
+  <% end %>
+</div>
 <p>
   Read the <%= link_to 'Rules', simple_pages_rules_path, class: "edit-link" %>
 </p>
