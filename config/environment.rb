@@ -4,7 +4,9 @@ require_relative 'application'
 # Initialize the Rails application.
 Rails.application.initialize!
 
+
 ActionMailer::Base.delivery_method = :smtp
+
 # SMTP settings for gmail
 ActionMailer::Base.smtp_settings = {
  :address              => "smtp.gmail.com",
