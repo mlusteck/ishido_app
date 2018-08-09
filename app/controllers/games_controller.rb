@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  before_action :set_game, only: [:show, :set_stone, :undo]
   load_and_authorize_resource
   def index
     if user_signed_in?
@@ -11,38 +12,9 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find_by(id: params[:id])
-    if(!@game || @game.name != params[:name])
-      respond_to do |format|
-        format.html { redirect_to games_path, alert: 'Wrong game name.'  }
-        format.json { render :show, status: :ok, location: games_path }
-      end
-    else
-      session[:current_game_name] = @game.name
-    end
   end
 
   def set_stone
-    @game = Game.find_by(id: params[:id])
-    if(!@game)
-      respond_to do |format|
-        format.html { redirect_to games_path, alert: 'An Error occurred.'  }
-        format.json { render :show, status: :ok, location: games_path }
-      end
-      return
-    elsif (@game.name != params[:name])
-      respond_to do |format|
-        format.html { redirect_to games_path, alert: 'Wrong game name.'  }
-        format.json { render :show, status: :ok, location: games_path }
-      end
-      return
-    end
-
-    session[:current_game_name] = @game.name
-    if user_signed_in? && @game.user_id == 1
-      @game.user_id = current_user.id
-    end
-
     board_x = params[:board_x].to_i
     board_y = params[:board_y].to_i
     @game.place_stone(board_x, board_y)
@@ -64,21 +36,6 @@ class GamesController < ApplicationController
   end
 
   def undo
-    @game = Game.find_by(id: params[:id])
-    if(!@game)
-      respond_to do |format|
-        format.html { redirect_to games_path, alert: 'An Error occurred.'  }
-        format.json { render :show, status: :ok, location: games_path }
-      end
-      return
-    elsif (@game.name != params[:name])
-      respond_to do |format|
-        format.html { redirect_to games_path, alert: 'Wrong game name.'  }
-        format.json { render :show, status: :ok, location: games_path }
-      end
-      return
-    end
-
     @game.undo_last_move
     respond_to do |format|
       if @game.save
@@ -150,7 +107,25 @@ class GamesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
-      @game = Game.find(params[:id])
+      @game = Game.find_by(id: params[:id])
+      if(!@game)
+        respond_to do |format|
+          format.html { redirect_to games_path, alert: 'An Error occurred.'  }
+          format.json { render :show, status: :ok, location: games_path }
+        end
+        return
+      elsif (@game.name != params[:name])
+        respond_to do |format|
+          format.html { redirect_to games_path, alert: 'Wrong game name.'  }
+          format.json { render :show, status: :ok, location: games_path }
+        end
+        return
+      end
+
+      session[:current_game_name] = @game.name
+      if user_signed_in? && @game.user_id == 1
+        @game.user_id = current_user.id
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

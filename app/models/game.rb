@@ -35,7 +35,7 @@ class Game < ApplicationRecord
   # place the next stone in the stones list on the board
   def place_stone(board_x, board_y)
     if self.current_stone_id >= self.stones.length
-      return    #there are no stones left to be palced
+      return  true  #there are no stones left to be palced
     end
 
     # after setting up the square with the first 6 stones
@@ -43,7 +43,7 @@ class Game < ApplicationRecord
     if self.current_stone_id >= 6
       fit_count = self.current_stone_fit_count(board_x, board_y)
       if fit_count < 1
-        return    # we are not allowed to place a stone there
+        return true  # we are not allowed to place a stone there
       end
     else
       fit_count = 0
@@ -57,6 +57,15 @@ class Game < ApplicationRecord
     self.four_count += 1 if fit_count==4
     self.board[board_x + 12 * board_y] = current_stone
     self.current_stone_id += 1
+
+    if self.save
+      if self.score > 0
+        ScoresController.helpers.insert_score self.score, self.user, self.name
+      end
+      return true
+    end
+
+    return false
   end
 
   def get_stone(board_x, board_y) # get stone or placeholder
@@ -84,26 +93,28 @@ class Game < ApplicationRecord
   end
 
   def undo_last_move
-    if self.current_stone_id > 6 # the stones 1-6 are not placed by the player
-      self.current_stone_id -= 1
-      current_stone = self.stones[self.current_stone_id]
-      board_x = current_stone["x"]
-      board_y = current_stone["y"]
-      # clear the board
-      self.clear_board(board_x, board_y)
-      current_stone["x"] = -1
-      current_stone["y"] = -1
-      # take back the score
-      fit_count = current_stone["fit_count"]
-      self.four_count -= 1 if fit_count==4
-      self.score -= calculate_score(fit_count)
-      self.score -= undo_penalty(self.undo_count)
-      if self.score < 0
-        self.score = 0
-      end
-
-      self.undo_count += 1
+    if self.current_stone_id <= 6 # the stones 1-6 are not placed by the player
+      return true
     end
+    self.current_stone_id -= 1
+    current_stone = self.stones[self.current_stone_id]
+    board_x = current_stone["x"]
+    board_y = current_stone["y"]
+    # clear the board
+    self.clear_board(board_x, board_y)
+    current_stone["x"] = -1
+    current_stone["y"] = -1
+    # take back the score
+    fit_count = current_stone["fit_count"]
+    self.four_count -= 1 if fit_count==4
+    self.score -= calculate_score(fit_count)
+    self.score -= undo_penalty(self.undo_count)
+    if self.score < 0
+      self.score = 0
+    end
+
+    self.undo_count += 1
+    return self.save
   end
 
   # calculate score for stone placed with n fitting neighbours
