@@ -338,6 +338,7 @@ table.highscores td:nth-child(5) {
 .four-way { color: #FD8; }
 .place-stone { cursor: pointer; }
 
+.color0 {  } /* empty square */ 
 .color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 20, 40%, 70%); }
 .color2 { color: hsl( 60, 80%, 30%); background-color: hsl( 70, 40%, 70%); }
 .color3 { color: hsl(130, 80%, 30%); background-color: hsl(140, 40%, 70%); }

@@ -18,15 +18,10 @@ class GamesController < ApplicationController
     board_x = params[:board_x].to_i
     board_y = params[:board_y].to_i
     @game.place_stone(board_x, board_y)
-    insert_score_ok = "null"
-    if @game.score > 0
-      insert_score_ok = ScoresController.helpers.insert_score @game.score, @game.user, @game.name
-    end
-
 
     respond_to do |format|
       if @game.save
-        format.html { redirect_to game_path(@game, name: @game.name) }  #, notice: insert_score_ok }
+        format.html { redirect_to game_path(@game, name: @game.name) }
         format.json { render :show, status: :ok, location: @game }
       else
         format.html { redirect_to game_path(@game, name: @game.name), alert: 'An Error occurred.' }
@@ -36,9 +31,8 @@ class GamesController < ApplicationController
   end
 
   def undo
-    @game.undo_last_move
     respond_to do |format|
-      if @game.save
+      if @game.undo_last_move
         format.html { redirect_to game_path(@game, name: @game.name), notice: 'Undo.' }
         format.json { render :show, status: :ok, location: @game }
       else
@@ -60,16 +54,9 @@ class GamesController < ApplicationController
     @game.name = ""
     (0...20).each {|n| @game.name += ('a'..'z').to_a.sample }
 
-    # set up the board with 12x8 empty squares
-    #   symbols \u2218 : small circle,  \u2219 : small bullet, \u2217 : 6-star
-    @game.board = (0..8*12).to_a
-    8.times do |board_y|
-      12.times do |board_x|
-        @game.clear_board(board_x, board_y)
-      end
-    end
-
+    @game.create_board
     @game.create_stones
+
     @game.score = 0;
     @game.four_count = 0;
     @game.undo_count = 0;

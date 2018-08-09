@@ -1,5 +1,7 @@
 class AddScoreToGames < ActiveRecord::Migration[5.2]
   def change
-    add_column :games, :score, :integer
+    change_column_default :games, :score, 0
+    change_column_default :games, :four_count, 0
+    change_column_default :games, :undo_count, 0
   end
 end

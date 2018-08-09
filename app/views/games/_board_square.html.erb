@@ -2,28 +2,11 @@
 <%# render one square of the board, mark places where the current stone might be placed %>
 
 <% stone = @game.get_stone(board_x, board_y).dup %>
-<% if stone["color"] != 0 # 0 indicates background %>
+<% fit_class = @game.fit_indicator_class(board_x, board_y) %>
+<% if fit_class == "" # normal square %>
   <div class="board-square"><span class='stone color<%= stone["color"] %>' ><%= stone["symbol"] %></span></div>
 <% else  %>
-  <%#  test if the current stone fits, %>
-  <%#  in this case mark the square with the clickable 'place-stone' class %>
-  <%#  (on click JS sends put-action set_stone via the hidden form in the aside section) %>
-  <% fit_count = @game.current_stone_fit_count(board_x, board_y) %>
-  <% if fit_count == 0 %>
-    <div class="board-square"><span class='stone' ><%= stone["symbol"] %></span></div>
-  <% else %>
-    <%
-    stone_class = "stone place-stone"
-    if fit_count == 2
-      stone_class += " two-fit"
-    elsif fit_count == 3
-      stone_class += " three-fit"
-    elsif fit_count == 4
-      stone_class += " four-way"
-    end
-    %>
-    <div class="board-square"><span class='<%= stone_class %>'
-          data-board-x='<%= board_x %>'
-          data-board-y='<%= board_y %>'><%= "\u25cf" %></span></div>
-  <% end %>
+  <div class="board-square"><span class='stone <%= fit_class %>'
+       data-board-x='<%= board_x %>'
+       data-board-y='<%= board_y %>'><%= "\u25cf" %></span></div>
 <% end %>
