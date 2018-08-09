@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_07_102324) do
+ActiveRecord::Schema.define(version: 2018_08_09_162520) do
 
   create_table "games", force: :cascade do |t|
     t.text "board"
     t.text "stones"
     t.integer "current_stone_id"
-    t.integer "score"
-    t.integer "four_count"
-    t.integer "undo_count"
+    t.integer "score", default: 0
+    t.integer "four_count", default: 0
+    t.integer "undo_count", default: 0
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
