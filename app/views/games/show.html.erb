@@ -20,7 +20,7 @@
       <ul>
         <%# check singular/plural, insert 's' if necessary %>
         <li><span class="score"><%= @game.score %></span> <%= "point".pluralize(@game.score)%></li>
-        <li>Rank <span class="score"><%= ScoresController.helpers.get_rank(@game.name) %></span>&nbsp;</li>
+        <li>Rank <span class="score"><%= get_rank(@game.name) %></span>&nbsp;</li>
         <li><span class="score"><%= @game.four_count %></span> <%= "four-way".pluralize(@game.four_count) %></li>
         <li><span class="score"><%= 72 - @game.current_stone_id %></span>
                   <%= "stone".pluralize(72 - @game.current_stone_id) %> left</li>

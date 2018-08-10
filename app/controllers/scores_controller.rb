@@ -1,6 +1,6 @@
 class ScoresController < ApplicationController
   def index
-    ScoresController.helpers.remove_lowest_scores
+    helpers.remove_lowest_scores
     @scores = Score.includes(:user).value_desc.all
   end
 end

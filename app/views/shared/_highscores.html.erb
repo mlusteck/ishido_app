@@ -3,11 +3,10 @@
   <tbody>
     <% scores.each_with_index do |score, idx| %>
       <tr>
-        <td><%= idx + 1 %>.</td>
-        <td><%= score.user.first_name %> <%= score.user.last_name %></td>
-        <td><span class="score"><%= score.value %></span></td>
-        <td><%= time_ago_in_words(score.updated_at) %> ago</td>
-        <td> <%= score.game_name %> </td>
+        <td class="rank"><%= idx + 1 %>.</td>
+        <td class="name"><%= score.user.first_name %> <%= score.user.last_name %></td>
+        <td class="score"><%= score.value %></td>
+        <td class="time"><%= time_ago_in_words(score.updated_at) %> ago</td>
       </tr>
     <% end %>
   </tbody>

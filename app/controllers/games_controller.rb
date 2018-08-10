@@ -5,8 +5,8 @@ class GamesController < ApplicationController
     if user_signed_in?
       @games = Game.where( user_id: current_user.id )
     else
-      # guest games older than 2 days are removed
-      Game.where("created_at < ?", 7.days.ago).destroy_all
+      # guest games left alone more than 7 days are removed
+      Game.where("updated_at < ?", 7.days.ago).destroy_all
       @games = []
     end
   end

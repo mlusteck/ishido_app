@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+  include ActionView::Helpers
   belongs_to :user
   serialize :board, JSON
   serialize :stones, JSON

@@ -262,36 +262,35 @@ form .btn-primary:hover {
 /********************  highscores  ********************************************/
 table.highscores { margin: 1em auto; }
 
-table.highscores td:nth-child(1) {
+table.highscores td.rank {
   text-align: right;
   padding-right: 0.5em;
 }
 
-table.highscores td:nth-child(2) {
+table.highscores td.name {
   padding-right: 1em;
   text-align: left;
   font-weight: bold;
   color: #f0e000;
 }
 
-table.highscores td:nth-child(3) {
+table.highscores td.score {
   text-align: right;
   padding-right: 1em;
 }
 
 
-table.highscores td:nth-child(4) {
+table.highscores td.time {
   font-size: 0.6em;
   font-style: italic;
   text-align: left;
 }
 
-table.highscores td:nth-child(5) {
+table.highscores td.game {
   font-size: 0.5em;
   font-style: italic;
   text-align: left;
   color: #999;
-
 }
 
 /*-------------------  end highscores  ---------------------------------------*/
@@ -338,7 +337,7 @@ table.highscores td:nth-child(5) {
 .four-way { color: #FD8; }
 .place-stone { cursor: pointer; }
 
-.color0 {  } /* empty square */ 
+.color0 {  } /* empty square */
 .color1 { color: hsl( 10, 80%, 30%); background-color: hsl( 20, 40%, 70%); }
 .color2 { color: hsl( 60, 80%, 30%); background-color: hsl( 70, 40%, 70%); }
 .color3 { color: hsl(130, 80%, 30%); background-color: hsl(140, 40%, 70%); }
@@ -370,13 +369,9 @@ table.highscores td:nth-child(5) {
 }
 
 @media screen and ( max-aspect-ratio: 11/10) {
-
   .rules-container { font-size: 1.0em; }
-
   div.main { font-size: 3.5w; }
-
   div.main h1 { font-size: 5vw; }
-
   .container-fluid { padding: 0 3vw; }
 
   aside,
@@ -440,13 +435,9 @@ table.highscores td:nth-child(5) {
 }
 
 @media screen and ( max-aspect-ratio: 9/10) {
-
   .rules-container { font-size: 1.0em; }
-
   div.main { font-size: 4vw; }
-
   div.main h1 { font-size: 5.5vw; }
-
   .container-fluid { padding: 0 3vw; }
 
   #my-navbar,
