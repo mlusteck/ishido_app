@@ -2,7 +2,7 @@
 <%# render one square of the board, mark places where the current stone might be placed %>
 
 <% stone = @game.get_stone(board_x, board_y).dup %>
-<% fit_class = @game.fit_indicator_class(board_x, board_y) %>
+<% fit_class = fit_indicator_class(@game.current_stone_fit_count(board_x, board_y)) %>
 <% if fit_class == "" # normal square %>
   <div class="board-square"><span class='stone color<%= stone["color"] %>' ><%= stone["symbol"] %></span></div>
 <% else  %>

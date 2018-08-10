@@ -36,7 +36,7 @@
       <%= form_tag( game_path(@game) + "/undo?name=" + @game.name, method: :put ) do %>
         <%= submit_tag "Undo" %>
       <% end %>
-      (<span class="score"><%= (-@game.undo_penalty(@game.undo_count))  %></span> penalty)
+      (<span class="score"><%= -@game.undo_penalty  %></span> penalty)
       <%# set stone via put /games/:id/set_stone, called via JS when clicking on marked squares %>
       <%= form_tag( game_path(@game) + "/set_stone?name=" + @game.name, method: :put, id:"hidden-form") do %>
         <input type="hidden" id="board_x" name="board_x" value="2" />

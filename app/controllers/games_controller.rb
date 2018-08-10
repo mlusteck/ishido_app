@@ -17,10 +17,13 @@ class GamesController < ApplicationController
   def set_stone
     board_x = params[:board_x].to_i
     board_y = params[:board_y].to_i
-    @game.place_stone(board_x, board_y)
 
     respond_to do |format|
-      if @game.save
+      if @game.place_stone(board_x, board_y)
+        if @game.score > 0
+          helpers.insert_score @game.score, @game.user, @game.name
+        end
+
         format.html { redirect_to game_path(@game, name: @game.name) }
         format.json { render :show, status: :ok, location: @game }
       else
@@ -44,26 +47,13 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new
+    @game.init
 
     if user_signed_in?
       @game.user_id = current_user.id
     else
       @game.user_id = 1  # guest user game
     end
-
-    @game.name = ""
-    (0...20).each {|n| @game.name += ('a'..'z').to_a.sample }
-
-    @game.create_board
-    @game.create_stones
-
-    #place the first six stones on the board
-    @game.place_stone( 0,  0)
-    @game.place_stone(11,  0)
-    @game.place_stone( 0,  7)
-    @game.place_stone(11,  7)
-    @game.place_stone( 5,  3)
-    @game.place_stone( 6,  4)
 
     session[:current_game_name] = @game.name
 
