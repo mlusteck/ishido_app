@@ -15,7 +15,9 @@
     <% end %>
   </div><!-- end row -->
   <% end %>
-  <p><%= link_to 'New Game', games_path, class: "edit-link",
-                   method: :create %>
+  <p>
+    <%= form_with(url: games_path, method: 'post', local: true, class: "inline-form")  do %>
+        <%= submit_tag "New Game", name: "game[submit]" %>
+    <% end %>
   </p>
 </div>
