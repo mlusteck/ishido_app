@@ -42,8 +42,8 @@ class Game < ApplicationRecord
       return true  # we are not allowed to place a stone there
     end
 
-    @board.place_stone( @stones.go_to_next_stone, board_x, board_y, fit_count)
     self.score += @stones.calculate_score( fit_count )
+    @board.place_stone( @stones.go_to_next_stone, board_x, board_y, fit_count)
     return self.save
   end
 
