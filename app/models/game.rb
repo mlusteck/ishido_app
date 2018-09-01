@@ -44,7 +44,7 @@ class Game < ApplicationRecord
 
     self.score += @stones.calculate_score( fit_count )
     @board.place_stone( @stones.go_to_next_stone, board_x, board_y, fit_count)
-    return self.save
+    self.save
   end
 
   def get_stone(board_x, board_y)
@@ -62,7 +62,7 @@ class Game < ApplicationRecord
 
     current_stone = @stones.back_to_previous_stone
     @board.take_stone_from_board(current_stone)
-    return self.save
+    self.save
   end
 
   def current_stone_fit_count(board_x, board_y)
@@ -70,12 +70,12 @@ class Game < ApplicationRecord
       return 0
     end
 
-    return @board.fit_count( @stones.get_current_stone, board_x, board_y)
+    @board.fit_count( @stones.get_current_stone, board_x, board_y)
   end
 
   # depending on previous undo_last_move
   # points are reduced after undo
   def undo_penalty
-    return 2 ** self.undo_count
+    2 ** self.undo_count
   end
 end

@@ -38,13 +38,13 @@ class Game
         return nil
       end
 
-      return @game.stones[@game.current_stone_id]
+      @game.stones[@game.current_stone_id]
     end
 
     def go_to_next_stone
       stone = self.get_current_stone
       @game.current_stone_id += 1
-      return stone
+      stone
     end
 
     def back_to_previous_stone
@@ -61,7 +61,7 @@ class Game
       end
 
       @game.undo_count += 1
-      return current_stone
+      current_stone
     end
 
     def before_first_move?
@@ -90,7 +90,7 @@ class Game
         score += 100
       end
 
-      return score
+      score
     end
   end
 end

@@ -28,7 +28,7 @@ class Game
         return nil
       end
 
-      return @game.board[board_x + 12 * board_y]
+      @game.board[board_x + 12 * board_y]
     end
 
     def place_stone( stone, board_x, board_y, fit_count=0)
